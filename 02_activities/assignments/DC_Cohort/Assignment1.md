@@ -14,10 +14,10 @@
     * Open a private window in your browser. Copy and paste the link to your pull request into the address bar. Make sure you can see your pull request properly. This helps the technical facilitator and learning support staff review your submission easily.
 
 Checklist:
-- [ ] Create a branch called `assignment-one`.
-- [ ] Ensure that the repository is public.
-- [ ] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
-- [ ] Verify that the link is accessible in a private browser window.
+- [X] Create a branch called `assignment-one`.
+- [X] Ensure that the repository is public.
+- [X] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
+- [X] Verify that the link is accessible in a private browser window.
 
 If you encounter any difficulties or have questions, please don't hesitate to reach out to our team via our Slack. Our Technical Facilitators and Learning Support staff are here to help you navigate any challenges.
 
@@ -209,5 +209,17 @@ Consider, for example, concepts of fariness, inequality, social structures, marg
 
 
 ```
-Your thoughts...
+
+Databases are part of everyday life, recording our actions, decisions, and personal information. Decisions about what information to collect, which categories to offer, and what counts as a valid record reflect the bias and presumptions of those who design these systems. Qadri’s article illustrates how Pakistan’s identification database embedded assumptions about family relationships, creating barriers for people whose circumstances do not fit those assumptions.
+
+An everyday example is how names are collected and stored through various application and registration forms. Mandatory first-name and last-name fields assume that everyone’s name follows the same structure. Offering only two gender options similarly excludes people whose identities fall outside those categories. These choices prioritize standardization and administrative convenience, sometimes requiring users to provide inaccurate information to proceed.
+
+As a PhD researcher, I also encounter systems that record academic achievements. Publications, grades, and awards help institutions compare applicants, but these measures reflect particular ideas about merit. If a system records publication counts without noting special circumstances or responsibilities or unequal access to research opportunities, it can overlook important context. Applying identical criteria does not necessarily produce fair outcomes.
+
+Another concern is how much data collection is necessary before it becomes an invasion of privacy. Collecting information simply because it might be useful can expose people to unnecessary risks, especially when sensitive details are stored or shared without their understanding. 
+
+Learning SQL has helped me recognize how technical choices affect representation and privacy. Required fields can prevent registration or force people to disclose information they would prefer to keep private, while an inner join can exclude records without matching entries. These choices influence both whose needs are represented and how much personal information people must share to access services.
+
+Responsible database design should therefore balance efficiency with inclusion, privacy, and accountability. Database designers should consult affected communities, collect only necessary information, and provide ways to correct records or challenge decisions. Systems should accommodate social diversity and changing circumstances, rather than requiring people to fit rigid categories.
+
 ```

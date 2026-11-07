@@ -14,11 +14,11 @@
     * Open a private window in your browser. Copy and paste the link to your pull request into the address bar. Make sure you can see your pull request properly. This helps the technical facilitator and learning support staff review your submission easily.
 
 Checklist:
-- [ ] 🚨🚨🚨 After forking, open the **Actions** tab in your own SQL repository. If prompted, click **I understand my workflows, go ahead and enable them** before opening your assignment pull request. This enables automatic SQL feedback on your pull request.
-- [ ] Create a branch called `assignment-two`.
-- [ ] Ensure that the repository is public.
-- [ ] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
-- [ ] Verify that the link is accessible in a private browser window.
+- [X] 🚨🚨🚨 After forking, open the **Actions** tab in your own SQL repository. If prompted, click **I understand my workflows, go ahead and enable them** before opening your assignment pull request. This enables automatic SQL feedback on your pull request.
+- [X] Create a branch called `assignment-two`.
+- [X] Ensure that the repository is public.
+- [X] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
+- [X] Verify that the link is accessible in a private browser window.
 
 If you encounter any difficulties or have questions, please don't hesitate to reach out to our team via our Slack. Our Technical Facilitators and Learning Support staff are here to help you navigate any challenges.
 
@@ -46,10 +46,25 @@ Remember, you don't actually need to run any of the queries in these articles, b
 
 There are several tools online you can use, I'd recommend [Draw.io](https://www.drawio.com/) or [LucidChart](https://www.lucidchart.com/pages/).
 
+```
+The logical model for this promopt is in the file: "02_activities/assignments/DC_Cohort/Logical_data_model_bookstore.png" 
+```
+![Bookstore logical model diagram](Logical_data_model_bookstore.png)
+
+
+
 **HINT:** You do not need to create any data for this prompt. This is a conceptual model only. 
 
 #### Prompt 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+
+```
+The logical model for this promopt is in the file: "./02_activities/assignments/DC_Cohort/Logical_data_model_bookstore2.png" 
+```
+
+![Bookstore logical model diagram](Logical_data_model_bookstore2.png)
+
+
 
 #### Prompt 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2? 
@@ -57,8 +72,36 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+The following tables show the 2 possible architectures of `CUSTOMER_ADDRESS` table to record customer addresses.
 ```
+
+| TYPE 1: OVERWRITE | TYPE 2: RETAIN ADDRESS HISTORY |
+| ----------------- | ---------------------- |
+|customer_id | address_version_id |
+|address_line_1 |  customer_id |
+|address_line_2 |  address_line_1  |
+|city | address_line_2 |
+|region |  city |
+|postal_code | region |
+|country | postal_code |
+|updated_at | country
+|    -       | valid_from
+|    -       | valid_to
+|    -       | is_current
+
+
+```
+Type 1 table: 
+One current address row per customer. A move updates this row. Simple to maintain; past addresses are lost. 
+
+Type 2 table:
+
+Several versions per customer. A move closes the current version and inserts a new row.
+More maintenance required; historical addresses are retained.
+ ```
+
+
+
 
 ***
 
@@ -193,5 +236,15 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 
 
 ```
-Your thoughts...
+Boykis's article challenges the idea that machine learning operates independently of people. By tracing image recognition through ImageNet, WordNet, and language resources, she shows how automated systems depend on human classification and annotation. This raises ethical questions about whose work is recognized, whose judgments become authoritative, and who bears the consequences of errors.
+
+One concern is workers' visibility and treatment. Companies may celebrate model performance while giving little recognition to the people who prepare its training data. When annotation is organized around speed and low cost, workers may have limited bargaining power. Ethical development should consider fair compensation, clear instructions, workloads, and opportunities to question inappropriate tasks.
+
+Another issue is bias in the categories themselves. A label is a human interpretation, not an objective property that a computer discovers. Categories can contain stereotypes or assumptions about identity, and annotators may disagree about how to apply them. Increasing dataset size does not automatically resolve these problems. Teams should examine whether a category is appropriate, document uncertainty, and involve people affected by the system.
+
+The article also makes accountability important. If a harmful output reflects choices made across several datasets and organizations, responsibility can become difficult to locate. Developers should maintain records of data origins, labeling decisions, and subsequent corrections, rather than presenting the model as an independent decision maker.
+
+These concerns can also inform how we evaluate today's language models and content moderation systems. This is an application of the article's argument, rather than a claim that it specifically examines current LLMs. Systems requiring human review should protect workers from harmful material and provide support.
+
+For me, the central take-home message is that technical quality includes the conditions under which data is produced. Ethical evaluation should examine the people, classifications, and institutions behind a system, alongside its accuracy, speed, and commercial value.
 ```

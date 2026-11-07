@@ -146,10 +146,9 @@ with a UNION binding them. */
 
 WITH daily_sales AS (
     SELECT market_date,
-           ROUND(SUM(quantity * cost_per_quantity), 2) AS sales
+    SUM(quantity * cost_per_quantity) AS sales
     FROM customer_purchases
-    GROUP BY market_date
-)
+    GROUP BY market_date) 
 SELECT market_date, sales
 FROM daily_sales
 WHERE sales = (SELECT MAX(sales) FROM daily_sales)
@@ -178,10 +177,10 @@ Before your final group by you should have the product of those two queries (x*y
 --QUERY 8
 
 SELECT vendor_name, product_name,
-       SUM(price) AS possible_revenue
+       SUM(total_price) AS possible_revenue
 FROM (
     SELECT DISTINCT vendor_name, product_name,
-           5 * original_price AS price
+           5 * original_price AS total_price
     FROM vendor_inventory
     JOIN vendor USING (vendor_id)
     JOIN product USING (product_id)
@@ -217,10 +216,10 @@ This can be any product you desire (e.g. add another record for Apple Pie). */
 --QUERY 10
 
 INSERT INTO product_units
-SELECT product.*, CURRENT_TIMESTAMP
+SELECT *, CURRENT_TIMESTAMP
 FROM product
-WHERE product_qty_type = 'unit'
-LIMIT 1;
+WHERE product_name = 'Apple Pie';
+
 
 
 --END QUERY
@@ -232,23 +231,20 @@ LIMIT 1;
 HINT: If you don't specify a WHERE clause, you are going to have a bad time.*/
 --QUERY 11
 
+WITH latest_product AS (
+    SELECT product_id
+    FROM product_units
+    ORDER BY snapshot_timestamp DESC
+    LIMIT 1
+)
 DELETE FROM product_units
-WHERE product_id = (
-          SELECT product_id
-          FROM product_units
-          ORDER BY snapshot_timestamp DESC
-          LIMIT 1
-      )
-  AND snapshot_timestamp = (
-          SELECT MIN(snapshot_timestamp)
-          FROM product_units
-          WHERE product_id = (
-              SELECT product_id
-              FROM product_units
-              ORDER BY snapshot_timestamp DESC
-              LIMIT 1
-          )
-      );
+WHERE product_id = (SELECT product_id FROM latest_product)
+AND snapshot_timestamp = (
+    SELECT MIN(snapshot_timestamp)
+    FROM product_units
+    WHERE product_id = (SELECT product_id FROM latest_product)
+);
+
 
 
 --END QUERY

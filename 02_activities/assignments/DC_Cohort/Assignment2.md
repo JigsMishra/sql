@@ -96,8 +96,7 @@ One current address row per customer. A move updates this row. Simple to maintai
 
 Type 2 table:
 
-Several versions per customer. A move closes the current
-version and inserts a new row.
+Several versions per customer. A move closes the current version and inserts a new row.
 More maintenance required; historical addresses are retained.
  ```
 
